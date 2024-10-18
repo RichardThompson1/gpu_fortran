@@ -1,0 +1,21 @@
+
+module transform_module
+  use cudafor
+  implicit none
+contains
+
+  attributes(global) subroutine transform_coordinates(x_in, y_in, x_out, y_out, nxny, x_obs, y_obs)
+    implicit none
+    integer, value :: nxny
+    real(8), value :: x_obs, y_obs
+    real(8), device :: x_in(*), y_in(*), x_out(*), y_out(*)
+    integer :: idx
+
+    idx = (blockidx%x -1) * blockdim%x + threadidx%x
+    if (idx <= nxny) then
+      x_out(idx) = x_in(idx) - x_obs
+      y_out(idx) = y_in(idx) - y_obs
+    end if
+  end subroutine transform_coordinates
+
+end module transform_module
