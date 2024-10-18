@@ -8,9 +8,9 @@ program cufinfo
         istat = cudaGetDeviceProperties(prop, num)
         call printDeviceProperties(prop, num)
     end do
-    end
+end program cufinfo
     !
-    subroutine printDeviceProperties(prop, num)
+subroutine printDeviceProperties(prop, num)
     use cudafor
     type(cudadeviceprop) :: prop
     integer num
@@ -44,4 +44,4 @@ program cufinfo
     905 format (a,i0,'.',i0)
     906 format (a,l0)
     return
-end
+end subroutine printDeviceProperties
